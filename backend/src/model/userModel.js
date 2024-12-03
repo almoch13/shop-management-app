@@ -32,3 +32,9 @@ export const deleteUser = async (id) => {
     where: { id: parseInt(id) },
   });
 };
+
+export const tokenRefresh = async (data) => {
+  return prisma.refreshTokens.create({
+    data,
+  });
+};
