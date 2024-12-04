@@ -39,10 +39,10 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { userCredential, password } = req.body;
+  const { credential, password } = req.body;
 
   try {
-    const user = await findUserCredential(userCredential);
+    const user = await findUserCredential(credential);
 
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
@@ -71,10 +71,6 @@ export const login = async (req, res) => {
       userId: user.id,
       expiresAt,
     });
-    // const createToken = await prisma.refreshTokens.create({
-    //   refreshTokens: reToken,
-    //   userId: parseInt(user.id),
-    // });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
