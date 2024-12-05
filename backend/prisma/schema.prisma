@@ -32,3 +32,15 @@ model RefreshTokens {
   expiresAt       DateTime 
   user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Product {
+  id              Int               @id @default(autoincrement())
+  name            String
+  motif           String
+  category        String
+  stock           Int
+  sellingPrice    Float
+  FeePrice        Float
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
