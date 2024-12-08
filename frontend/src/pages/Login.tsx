@@ -1,8 +1,8 @@
-import InputField from "@/component/InputField";
+import InputField from "@/components/InputField";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { loginUser } from "@/redux/slices/authSlice";
+import { loginUser, restoreToken } from "@/redux/slices/authSlice";
 import { AppDispatch, RootState } from "@/redux/store";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,13 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const sessionToken = sessionStorage.getItem("token");
+    if (sessionToken && !token) {
+      dispatch(restoreToken(sessionToken));
+    }
+  }, [dispatch, token]);
+
+  useEffect(() => {
     if (token) {
       navigate("/dashboard");
     }
@@ -27,6 +34,9 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (!credential || !password)
+      return setError("Mohon masukan username/email dan password!");
 
     try {
       await dispatch(loginUser({ credential, password })).unwrap();
@@ -51,6 +61,7 @@ const Login: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <InputField
             id="credential"
+            name="credential"
             label="Enter Email or username"
             type="text"
             value={credential}
@@ -58,6 +69,7 @@ const Login: React.FC = () => {
           />
           <InputField
             id="password"
+            name="password"
             label="Password"
             type="password"
             value={password}

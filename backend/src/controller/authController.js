@@ -61,7 +61,7 @@ export const login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-    console.log(refreshToken);
+    // console.log(refreshToken);
 
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 7);
@@ -95,7 +95,7 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
+    const { refreshToken } = req.body;
     console.log(refreshToken);
     if (!refreshToken) return res.status(404).json({ message: "No content" });
     await prisma.refreshTokens.deleteMany({
@@ -104,7 +104,6 @@ export const logout = async (req, res) => {
       },
     });
 
-    res.clearCookie("refreshToken");
     res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
     console.log(error);

@@ -4,6 +4,7 @@ import React from "react";
 
 interface InputFieldProps {
   id: string;
+  name: string;
   label: string;
   type: string;
   value: string;
@@ -13,6 +14,7 @@ interface InputFieldProps {
 
 const InputField: React.FC<InputFieldProps> = ({
   id,
+  name,
   label,
   type,
   value,
@@ -24,6 +26,7 @@ const InputField: React.FC<InputFieldProps> = ({
       <Label htmlFor={id}>{label}</Label>
       <Input
         id={id}
+        name={name}
         type={type}
         value={value}
         onChange={onChange}
