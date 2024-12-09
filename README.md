@@ -37,5 +37,5 @@ Aplikasi ini adalah aplikasi berbasis web untuk mengelola produk, listing pesana
 
 - **Node.js** (Express.js)
 - **Prisma ORM** (PostgreSQL)
-- **RESTful API** (Express.js)
-- **JSON Web Token** (Express.js)
+- **RESTful API**
+- **JSON Web Token**
